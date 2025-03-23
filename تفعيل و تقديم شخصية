@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج تفعيل و تقديم شخصية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        input, textarea, select {
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="login-container">
+        <h2>تسجيل الدخول عبر GitHub</h2>
+        <button onclick="loginWithGitHub()">تسجيل الدخول</button>
+    </div>
+
+    <div class="container" id="form-container" style="display: none;">
+        <h2>نموذج تفعيل و تقديم شخصية</h2>
+        <form onsubmit="saveData(event)">
+            <label>اسمك:</label>
+            <input type="text" id="name" required>
+            
+            <label>عمرك:</label>
+            <input type="number" id="age" required>
+            
+            <label>اسم شخصيتك:</label>
+            <input type="text" id="character_name" required>
+            
+            <label>عمر شخصيتك:</label>
+            <input type="number" id="character_age" required>
+            
+            <label>قصة شخصيتك:</label>
+            <textarea id="character_story" required></textarea>
+            
+            <label>مواليد الشخصية:</label>
+            <input type="date" id="birth_date" required>
+            
+            <label>مكان ولادة الشخصية:</label>
+            <input type="text" id="birth_place" required>
+            
+            <label>ما هو الرول؟</label>
+            <input type="text" id="role" required>
+            
+            <label>اذا رأيت رقابي/إداري يخرب في الرول، ماذا تفعل؟</label>
+            <textarea id="role_behavior" required></textarea>
+            
+            <label>هل لديك خبرة في تقمص الشخصيات؟</label>
+            <select id="roleplay_experience" required>
+                <option value="نعم">نعم</option>
+                <option value="لا">لا</option>
+            </select>
+            
+            <label>ما سبب رغبتك في دخول المدينة؟</label>
+            <textarea id="reason" required></textarea>
+            
+            <button type="submit">إرسال</button>
+        </form>
+    </div>
+    
+    <script>
+        const CLIENT_ID = 'YOUR_GITHUB_CLIENT_ID'; // ضع هنا ID تطبيق GitHub OAuth
+        const REDIRECT_URI = window.location.origin;
+
+        function loginWithGitHub() {
+            const authUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=read:user`;
+            window.location.href = authUrl;
+        }
+
+        async function handleAuth() {
+            const params = new URLSearchParams(window.location.search);
+            const code = params.get('code');
+            if (code) {
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('form-container').style.display = 'block';
+            }
+        }
+
+        function saveData(event) {
+            event.preventDefault();
+            let formData = {
+                name: document.getElementById('name').value,
+                age: document.getElementById('age').value,
+                character_name: document.getElementById('character_name').value,
+                character_age: document.getElementById('character_age').value,
+                character_story: document.getElementById('character_story').value,
+                birth_date: document.getElementById('birth_date').value,
+                birth_place: document.getElementById('birth_place').value,
+                role: document.getElementById('role').value,
+                role_behavior: document.getElementById('role_behavior').value,
+                roleplay_experience: document.getElementById('roleplay_experience').value,
+                reason: document.getElementById('reason').value
+            };
+            localStorage.setItem('activationData', JSON.stringify(formData));
+            alert("تم إرسال البيانات بنجاح!");
+        }
+
+        window.onload = handleAuth;
+    </script>
+</body>
+</html>
