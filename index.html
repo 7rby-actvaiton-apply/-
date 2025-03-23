@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقديم التفعيل</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .content {
+            display: none;
+        }
+        .password-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="password-container">
+        <h2>أدخل كلمة المرور للوصول إلى النموذج</h2>
+        <input type="password" id="password" placeholder="أدخل كلمة المرور" />
+        <button onclick="checkPassword()">إدخال</button>
+    </div>
+
+    <div id="content" class="content">
+        <h2>نموذج التفعيل والتقديم</h2>
+        <!-- نموذج التفعيل والتقديم هنا -->
+        <form>
+            <label for="name">اسمك:</label>
+            <input type="text" id="name" required /><br>
+            <label for="age">عمرك:</label>
+            <input type="number" id="age" required /><br>
+            <!-- أضف باقي الحقول هنا -->
+            <button type="submit">إرسال</button>
+        </form>
+    </div>
+
+    <script>
+        const password = "LordTreowntrep";  // كلمة المرور السحرية
+        
+        // تحقق من وجود كلمة المرور في LocalStorage أولاً
+        function checkAccess() {
+            if (localStorage.getItem("accessGranted") === "true") {
+                document.getElementById("password-container").style.display = "none";
+                document.getElementById("content").style.display = "block";
+            } else {
+                document.getElementById("password-container").style.display = "block";
+                document.getElementById("content").style.display = "none";
+            }
+        }
+
+        function checkPassword() {
+            const enteredPassword = document.getElementById("password").value;
+            if (enteredPassword === password) {
+                localStorage.setItem("accessGranted", "true");
+                document.getElementById("password-container").style.display = "none";
+                document.getElementById("content").style.display = "block";
+            } else {
+                alert("كلمة المرور غير صحيحة!");
+            }
+        }
+
+        // تحقق من الوصول عند تحميل الصفحة
+        window.onload = checkAccess;
+    </script>
+
+</body>
+</html>
