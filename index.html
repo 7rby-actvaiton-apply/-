@@ -3,70 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقديم التفعيل</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        .content {
-            display: none;
-        }
-        .password-container {
-            margin-top: 20px;
-        }
-    </style>
+    <title>نموذج تفعيل وتقديم الشخصية</title>
 </head>
 <body>
-
-    <div id="password-container">
-        <h2>أدخل كلمة المرور للوصول إلى النموذج</h2>
-        <input type="password" id="password" placeholder="أدخل كلمة المرور" />
-        <button onclick="checkPassword()">إدخال</button>
-    </div>
-
-    <div id="content" class="content">
-        <h2>نموذج التفعيل والتقديم</h2>
-        <!-- نموذج التفعيل والتقديم هنا -->
-        <form>
-            <label for="name">اسمك:</label>
-            <input type="text" id="name" required /><br>
-            <label for="age">عمرك:</label>
-            <input type="number" id="age" required /><br>
-            <!-- أضف باقي الحقول هنا -->
-            <button type="submit">إرسال</button>
-        </form>
-    </div>
-
-    <script>
-        const password = "LordTreowntrep";  // كلمة المرور السحرية
+    <h2>نموذج تفعيل وتقديم الشخصية</h2>
+    <form action="your-backend-url" method="POST">
+        <label for="name">اسمك:</label>
+        <input type="text" id="name" name="name" required><br><br>
         
-        // تحقق من وجود كلمة المرور في LocalStorage أولاً
-        function checkAccess() {
-            if (localStorage.getItem("accessGranted") === "true") {
-                document.getElementById("password-container").style.display = "none";
-                document.getElementById("content").style.display = "block";
-            } else {
-                document.getElementById("password-container").style.display = "block";
-                document.getElementById("content").style.display = "none";
-            }
-        }
-
-        function checkPassword() {
-            const enteredPassword = document.getElementById("password").value;
-            if (enteredPassword === password) {
-                localStorage.setItem("accessGranted", "true");
-                document.getElementById("password-container").style.display = "none";
-                document.getElementById("content").style.display = "block";
-            } else {
-                alert("كلمة المرور غير صحيحة!");
-            }
-        }
-
-        // تحقق من الوصول عند تحميل الصفحة
-        window.onload = checkAccess;
-    </script>
-
+        <label for="age">عمرك:</label>
+        <input type="number" id="age" name="age" required><br><br>
+        
+        <label for="character_name">اسم شخصيتك:</label>
+        <input type="text" id="character_name" name="character_name" required><br><br>
+        
+        <label for="character_story">قصة شخصيتك:</label>
+        <textarea id="character_story" name="character_story" required></textarea><br><br>
+        
+        <label for="character_age">عمر شخصيتك:</label>
+        <input type="number" id="character_age" name="character_age" required><br><br>
+        
+        <label for="birth_date">تاريخ الميلاد:</label>
+        <input type="date" id="birth_date" name="birth_date" required><br><br>
+        
+        <label for="birth_place">مكان ولادة الشخصية:</label>
+        <input type="text" id="birth_place" name="birth_place" required><br><br>
+        
+        <label for="role">ما هو الرول في السيرفر؟</label>
+        <input type="text" id="role" name="role" required><br><br>
+        
+        <label for="admin_role">إذا رأيت رقابي/إداري يخرب في الرول، ماذا ستفعل؟</label>
+        <input type="text" id="admin_role" name="admin_role" required><br><br>
+        
+        <label for="experience">هل لديك خبرة في تقمص الشخصيات؟</label>
+        <input type="text" id="experience" name="experience" required><br><br>
+        
+        <label for="reason">ما سبب رغبتك/رغبتك لدخول المدينة؟</label>
+        <input type="text" id="reason" name="reason" required><br><br>
+        
+        <button type="submit">إرسال</button>
+    </form>
 </body>
 </html>
